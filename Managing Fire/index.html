@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="no-js oldie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.maptiler.com/maptiler-geocoding-control/v0.0.98/leaflet.umd.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-geocoding-control/v0.0.98/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	
+	<style>
+		/* Style for the map container */
+		#map-container {
+		  position: relative;
+		  width: 100%;
+		  height: 500px;
+		}
+		/* Style for the map */
+		#map {
+		  width: 100%;
+		  height: 100%;
+		}
+		/* Style for zoom controls */
+		.leaflet-control-zoom {
+		  display: none;
+		}
+		/* Style for the custom buttons */
+		.custom-control {
+		  position: absolute;
+		  background-color: white;
+		  cursor: pointer;
+		  text-align: center;
+		  padding: 5px;
+		  z-index: 1000;
+		}
+		.custom-zoom-in {
+		  top: 10px;
+		  right: 10px;
+		}
+		.custom-zoom-out {
+		  top: 50px;
+		  right: 10px;
+		}
+		/* Style for the pinpoint icon */
+		.pinpoint-icon {
+		  color: red;
+		}
+	  </style>
+</head>
+
+   <!--- basic page needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>FireFighters</title>
+	<meta name="description" content="">  
+	<meta name="author" content="">
+
+   <!-- mobile specific metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+ 	<!-- CSS
+   ================================================== -->
+   <link rel="stylesheet" href="css/base.css">  
+   <link rel="stylesheet" href="css/main.css">
+   <link rel="stylesheet" href="css/vendor.css">     
+
+   <!-- script
+   ================================================== -->   
+	<script src="js/modernizr.js"></script>
+	<script src="js/pace.min.js"></script>
+
+   <!-- favicons
+	================================================== -->
+
+</head>
+
+<body id="top">
+
+	<!-- header 
+   ================================================== -->
+   <header>   
+		
+	<div id="modelBox">
+        <img src="images/fire.jpg" width="100%">
+        <div class="offer-text">
+            <h2>Are you in an emergency?</h2>
+            <small>Report as soon as possible</small>
+            <p>
+                Only Report Real Fire Incidents To Save Life of Yours as well as Others.
+            </p>
+                <button type="submit" onclick="replaceText()" id="btn">BACHAO BACHAO</button>
+        </div>
+        <img src="images/close.png" class="close-icon" onclick="closeModel()">
+    </div>
+	<script>
+		function replaceText() {
+    	var textToReplace = document.getElementById('btn');
+    	textToReplace.textContent = 'Succesfully Reported';
+
+		
+}
+	</script>
+    <script>
+         let modelBox = document.getElementById('modelBox');
+            modelBox.style.display = "block";
+        
+            function closeModel () {
+                modelBox.style.display = "none";
+				document.body.classList.remove('blur-background');
+				var containerMain = document.querySelector('.container-main');
+				var sectionClass = document.querySelector('.section-class');
+				containerMain.classList.remove('blur-background');
+				sectionClass.classList.remove('blur-background');
+            }
+    </script>
+	
+	<div class="container-main">
+   	<div class="row">
+
+   		<div class="top-bar">
+   			<a class="menu-toggle" href="#"><span>Menu</span></a>
+
+	   		<div class="logo">
+		         <a href="index.html">SM FireFighters</a>
+		      </div>		      
+
+		   	<nav id="main-nav-wrap">
+					<ul class="main-navigation">
+						<li class="current"><a class="smoothscroll"  href="#intro" title="">Home</a></li>
+						<li><a class="smoothscroll"  href="#map" title="">Map</a></li>
+						<li><a class="smoothscroll"  href="#resume" title="">Know more about fire</a></li>
+						<li><a class="smoothscroll"  href="#portfolio" title="">Fire Incidents</a></li>	
+						<li><a class="smoothscroll"  href="#services" title="">Patient Report</a></li>
+						<li><a class="smoothscroll"  href="#contact" title="">Contact Us</a></li>	
+						<li><a class="smoothscroll" title="" href="#about-us">About Us</a></li>				
+					</ul>
+				</nav>    		
+   		</div> <!-- /top-bar --> 
+   		
+   	</div> <!-- /row --> 		
+   </header> <!-- /header -->
+
+	<!-- intro section
+   ================================================== -->
+   <section id="intro" class="section-class">   
+
+   	<div class="intro-overlay"></div>	
+
+   	<div class="intro-content">
+   		<div class="row">
+
+   			<div class="col-twelve">
+
+	   			<h5>Hello, World.</h5>
+	   			<h1>We are Super Mario FireFighters</h1>
+
+	   			<p class="intro-position">
+	   				<span>Fire Management Challenges</span>
+	   				<span>Fire Management Solutions</span> 
+	   			</p>
+
+	   			<a class="button stroke smoothscroll" href="#about" title="">More About Us</a>
+
+	   		</div>  
+   			
+   		</div>   		 		
+   	</div> <!-- /intro-content --> 
+
+   	<ul class="intro-social">        
+         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+         <li><a href="#"><i class="fa fa-behance"></i></a></li>
+         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+         <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+      </ul> <!-- /intro-social -->      	
+
+   </section> <!-- /intro -->
+
+
+   <!-- about section
+   ================================================== -->
+   
+   <div id="map-container">
+	<div id="map"> </div>
+  </div>
+
+  <script>
+	let map;
+	let pinpoint;
+
+	// Create a map centered on the USA
+	map = L.map('map', {
+	  center: [39.8283, -98.5795],
+	  zoom: 4,
+	  dragging: false,
+	  doubleClickZoom: false,
+	  zoomControl: false
+	});
+
+	// Add MapTiler Streets as the base map
+	L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=258RE5tXXc3mA8T6AvTw', {
+	  attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+	}).addTo(map);
+
+	// Create custom zoom in and zoom out buttons
+	const zoomInButton = L.control({ position: 'topright' });
+	const zoomOutButton = L.control({ position: 'topright' });
+
+	zoomInButton.onAdd = function(map) {
+	  const div = L.DomUtil.create('div', 'custom-control custom-zoom-in');
+	  div.innerHTML = '<i class="fas fa-plus"></i>';
+	  div.style.backgroundColor = 'white';
+	  div.style.cursor = 'pointer';
+	  div.style.marginBottom = '10px';
+	  div.style.textAlign = 'center';
+
+	  div.onclick = function() {
+		map.setZoom(map.getZoom() + 1);
+	  };
+
+	  return div;
+	};
+
+	zoomOutButton.onAdd = function(map) {
+	  const div = L.DomUtil.create('div', 'custom-control custom-zoom-out');
+	  div.innerHTML = '<i class="fas fa-minus"></i>';
+	  div.style.backgroundColor = 'white';
+	  div.style.cursor = 'pointer';
+	  div.style.textAlign = 'center';
+
+	  div.onclick = function() {
+		map.setZoom(map.getZoom() - 1);
+	  };
+
+	  return div;
+	};
+
+	zoomInButton.addTo(map);
+	zoomOutButton.addTo(map);
+
+	// Create a pinpoint icon
+	const pinpointIcon = L.divIcon({
+	  className: 'pinpoint-icon',
+	  iconSize: [20, 20],
+	  iconAnchor: [10, 10],
+	  html: '<i class="fas fa-map-pin fa-2x"></i>'
+	});
+
+	// Function to handle pinpoint creation and display coordinates in a popup
+	function onMapClick(e) {
+	  if (pinpoint) {
+		map.removeLayer(pinpoint);
+	  }
+
+	  pinpoint = L.marker(e.latlng, {
+		icon: pinpointIcon
+	  }).addTo(map);
+
+	  const popup = L.popup()
+		.setLatLng(e.latlng)
+		.setContent(`Latitude: ${e.latlng.lat.toFixed(6)}, Longitude: ${e.latlng.lng.toFixed(6)}`)
+		.openOn(map);
+	}
+
+	// var circle = L.circle([38.616870,-93.831292] , {
+	//   color : 'red',
+	//   fillColor: '#fo3',
+	//   fillOpacity: 0.5,
+	//   radius: 2400
+	// }).addTo(map);
+
+	 var circle = L.circle([38.616870,-93.831292] , {
+	  color : 'red',
+	  fillColor: '#fo3',
+	  fillOpacity: 0.5,
+	  radius: 5000
+	}).addTo(map);
+  circle.bindPopup("Danger Zone");
+
+	  var circle = L.circle([38.548165,-94.322334] , {
+	  color : 'red',
+	  fillColor: '#fo3',
+	  fillOpacity: 0.5,
+	  radius: 3500
+	}).addTo(map);
+
+  circle.bindPopup("Danger Zone");
+
+	 var circle = L.circle([38.242495, -93.970657
+] , {
+	  color : 'red',
+	  fillColor: '#fo3',
+	  fillOpacity: 0.5,
+	  radius: 4100
+	}).addTo(map);
+		 circle.bindPopup("Danger Zone");
+
+	// Attach the click event to the map
+	map.on('click', onMapClick);
+
+	// Function to handle pinpoint creation and display coordinates and UV data in a popup
+function onMapClick(e) {
+if (pinpoint) {
+  map.removeLayer(pinpoint);
+}
+
+// Simulate fetching UV data based on the clicked location (you should replace this with actual data fetching)
+const uvData = getUVData(e.latlng);
+
+pinpoint = L.marker(e.latlng, {
+  icon: pinpointIcon
+}).addTo(map);
+
+const popupContent = `
+  <div>
+	<p>Latitude: ${e.latlng.lat.toFixed(6)}</p>
+	<p>Longitude: ${e.latlng.lng.toFixed(6)}</p>
+	<p>UV Rays: ${uvData}</p>
+  </div>
+`;
+
+const popup = L.popup()
+  .setLatLng(e.latlng)
+  .setContent(popupContent)
+  .openOn(map);
+}
+
+// Simulated function to fetch UV data (replace this with actual data fetching)
+function getUVData(latlng) {
+// Here, you can fetch UV data from an API or any other source based on the provided latitude and longitude.
+// For this example, we'll return a simulated UV data value.
+return Math.random() * 10; // Simulated UV data between 0 and 10.
+}
+// Function to handle pinpoint creation and display coordinates and environmental data in a popup
+function onMapClick(e) {
+if (pinpoint) {
+  map.removeLayer(pinpoint);
+}
+
+// Simulate fetching environmental data based on the clicked location (you should replace this with actual data fetching)
+const environmentalData = getEnvironmentalData(e.latlng);
+
+pinpoint = L.marker(e.latlng, {
+  icon: pinpointIcon
+}).addTo(map);
+
+const popupContent = `
+  <div>
+	<p>Latitude: ${e.latlng.lat.toFixed(6)}</p>
+	<p>Longitude: ${e.latlng.lng.toFixed(6)}</p>
+	<p>UV Rays: ${environmentalData.uvData}</p>
+	<p>PM2.5: ${environmentalData.pm25Data}</p>
+	<p>PM10: ${environmentalData.pm10Data}</p>
+  </div>
+`;
+
+const popup = L.popup()
+  .setLatLng(e.latlng)
+  .setContent(popupContent)
+  .openOn(map);
+}
+
+// Simulated function to fetch environmental data (replace this with actual data fetching)
+function getEnvironmentalData(latlng) {
+// Here, you can fetch environmental data (UV, PM2.5, PM10) from an API or any other source based on the provided latitude and longitude.
+// For this example, we'll return simulated data.
+return {
+  uvData: Math.random() * 10, // Simulated UV data between 0 and 10.
+  pm25Data: Math.random() * 50, // Simulated PM2.5 data between 0 and 50.
+  pm10Data: Math.random() * 100 // Simulated PM10 data between 0 and 100.
+};
+}
+
+
+  </script>
+   <!-- resume Section
+   ================================================== -->
+	<section id="resume" class="grey-section">
+
+		<div class="row section-intro">
+   		<div class="col-twelve">
+
+   			<h5>KNOW MORE ABOUT FIRE</h5>
+   			<h1> let's read about fire </h1>
+
+   			<p class="lead">
+				From wildfires sweeping across vast forests to house fires in urban areas, the severity of a fire can vary dramatically. Understanding the factors that cause these variations is crucial for prevention, preparedness, and effective disaster management. In this article, we will delve into the complex interplay of natural and human-induced factors that contribute to the variable severity of fires.
+			</p>
+
+   		</div>   		
+   	</div> <!-- /section-intro--> 
+
+   	<div class="row resume-timeline">
+
+   		<div class="col-twelve resume-header">
+
+   			<h2>Proceedings of Fire</h2>
+
+   		</div> <!-- /resume-header -->
+
+   		<div class="col-twelve">
+
+   			<div class="timeline-wrap">
+
+   				<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i></i>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Weather Conditions</h4>
+	   					<p>
+							
+Weather plays a pivotal role in determining the intensity and spread of a fire. High temperatures, low humidity, and strong winds create a favorable environment for fires to escalate rapidly. Wind, especially, can carry embers over long distances, igniting new fires and causing existing ones to spread swiftly.
+						</p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+	   			<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i></i>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Fuel Availability and Dryness</h4>
+	   					<p>
+							The availability and dryness of fuel are critical factors in fire behavior. Dry, dead vegetation, such as fallen leaves, grass, and twigs, provides ample fuel for fires to consume. Drought conditions can lead to widespread dryness, making landscapes highly susceptible to ignition. In forests, the accumulation of dead trees and underbrush serves as potential kindling, significantly influencing the fire’s severity.
+						</p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+	   			<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i></i>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Topography</h4>
+	   					<p>
+							The topography of an area, including its slope, elevation, and orientation, affects the speed and direction of fire spread. Fires tend to travel faster uphill due to preheating of the fuel ahead and the assistance of updrafts. Canyons and valleys can channelize the wind, intensifying the blaze and making it harder to control.
+						</p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+   			</div> <!-- /timeline-wrap -->   			
+
+   		</div> <!-- /col-twelve -->
+   		
+   	</div> <!-- /resume-timeline -->
+   	
+   	<div class="row resume-timeline">
+
+   		<div class="col-twelve resume-header">
+
+   		</div> <!-- /resume-header -->
+
+   		<div class="col-twelve">
+
+   			<div class="timeline-wrap">
+
+   				<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i></i>
+					</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Human Activities</h4>
+	   					<p>
+							A significant number of fires are caused by human activities, such as discarded cigarettes, unattended campfires, and arson. Urban areas with closely packed buildings provide ample opportunities for fires to leap from structure to structure, creating conflagrations that are difficult to contain. Additionally, the improper disposal of flammable materials can turn a small fire into a devastating inferno.
+						</p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+	   			<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i ></i>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Climate Change</h4>
+	   					<p>
+							Climate change has significantly altered weather patterns and increased the frequency and intensity of extreme weather events. Rising temperatures, prolonged droughts, and changing precipitation patterns create conditions conducive to larger and more severe fires. Climate change-induced factors like prolonged fire seasons and unpredictable weather exacerbate the challenges faced by firefighting efforts.
+						</p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+	   			<div class="timeline-block">
+
+	   				<div class="timeline-ico">
+	   					<i></i>
+	   				</div>
+
+	   				<div class="timeline-content">
+	   					<h4>Ecological Factors</h4>
+	   					<p>
+							Certain ecosystems, such as chaparral and grasslands, are adapted to regular, low-intensity fires. These fires help clear out undergrowth and promote new plant growth. However, if these ecosystems do not experience regular, mild fires, the accumulation of fuel can lead to more intense and damaging fires when they do occur.
+						</p>
+	   				</div>
+
+	   			</div> <!-- /timeline-block -->
+
+   			</div> <!-- /timeline-wrap -->   			
+
+   		</div> <!-- /col-twelve -->
+   		
+   	</div> <!-- /resume-timeline -->
+		
+	</section> <!-- /features -->
+
+
+	<!-- Portfolio Section
+   ================================================== -->
+	<section id="portfolio">
+
+		<div class="row section-intro">
+   		<div class="col-twelve">
+
+   			<h5>Recent Fire Incidents</h5>
+   			<h1>Assessment Reports</h1>
+
+   		</div>   		
+   	</div> <!-- /section-intro--> 
+
+   	<div class="row portfolio-content">
+
+   		<div class="col-twelve">
+
+   			<!-- portfolio-wrapper -->
+	         <div id="folio-wrapper" class="block-1-2 block-mob-full stack">
+
+	         	<div class="bgrid folio-item">
+	               <div class="item-wrap">
+	               	<img src="./images/amazon.webp" alt="Amazon Forest Fire">
+	                  <a href="#modal-01" class="overlay">	                  	           
+	                     <div class="folio-item-table">
+	                     	<div class="folio-item-cell">
+		     					       <h3 class="folio-title">Amazon Forest Fire</h3>	     					    
+		     					    	 <span class="folio-types">
+											Start date: January 2019
+											Location: Brazil, Bolivia, Peru, Paraguay
+											Burned area: 906,000 hectares (2,240,000 acres; 9,060 km2; 3,500 sq mi)
+											Cost: >$900 billion (2019 USD)
+											Deaths: 2
+											Land use: Agricultural development
+											Total fires: >40,000
+		     					       </span>
+		     					   </div>	                      	
+	                     </div>                    
+	                  </a>
+	               </div>	               
+	        		</div> <!-- /folio-item -->
+
+	        		<div class="bgrid folio-item">
+	               <div class="item-wrap">
+	               	<img src="./images/bushfire.jpg" alt="Shutterbug">
+	               	<a href="#modal-02" class="overlay">              		                  
+	                     <div class="folio-item-table">
+	                     	<div class="folio-item-cell">
+	                     		<h3 class="folio-title">Australian Bushfire</h3>	     					    
+		     					    	<span class="folio-types">
+											Australian Bushfires (2019-2020):
+											The most severe fires peaked from December 2019 to January 2020. The fires burnt an estimated 24.3 million hectares (243,000 square kilometres), destroyed over 3,000 buildings (including 2,779 homes), and killed at least 34 people.
+		     					      </span>		     		
+		     					   </div> 	                      	
+	                     </div>                    
+	                  </a>
+	               </div>
+	        		</div> <!-- /folio-item -->
+
+	            <div class="bgrid folio-item">
+	               <div class="item-wrap">
+	               	<img src="./images/siberian.jpg"alt="Siberian Wildfire">
+	                  <a href="#modal-03" class="overlay">             		                  
+	                     <div class="folio-item-table">
+	                     	<div class="folio-item-cell">
+	                     		<h3 class="folio-title">Siberian Wildfires</h3>	     					    
+		     					    	<span class="folio-types">
+											On 31 July 2019, Russian authorities reported that 3 million hectares (7.4 million acres; 30,000 km2) were on fire, an area roughly the size of Belgium. The smoke from the fires affected air quality in much of Siberia, including cities Novosibirsk, Krasnoyarsk, Omsk and other. Air travel was also disrupted.
+		     					      </span>		     		
+		     					   </div> 	                      	
+	                     </div>                    
+	                  </a>
+	               </div>
+	        		</div> <!-- /folio-item -->
+
+	            <div class="bgrid folio-item">
+	               <div class="item-wrap">
+	               	<img src="./images/singapore.avif" alt="indonesia">
+	                  <a href="#modal-04" class="overlay">                  	                 
+	                     <div class="folio-item-table">
+	                     	<div class="folio-item-cell">
+	                     		<h3 class="folio-title">Indonesia Forest Fire</h3>	     					    
+		     					    	<span class="folio-types">
+											More than 100,000 people are likely to have died from smoke exposure as fires burned across Indonesia in 2015, according to research from Harvard and Columbia universities. The toll makes it one of the deadliest environmental calamities of the modern era.
+		     					      </span>		     		
+		     					   </div>  	                      	
+	                     </div>                    
+	                  </a>
+	               </div>
+	        		</div> <!-- /folio-item -->     
+
+	        		<div class="bgrid folio-item">
+	               <div class="item-wrap">
+	               	<img src="./images/california.jpg" alt="California">
+	                  <a href="#modal-05" class="overlay">             		                  
+	                     <div class="folio-item-table">
+	                     	<div class="folio-item-cell">
+	                     		<h3 class="folio-title">California Wildfires</h3>	     					    
+		     					    	<span class="folio-types">
+											Year: 2022
+											Area: 362,455
+											Date: January 21–October 23
+											Buildings destroyed	: 772 destroyed
+																	104 damaged
+												
+											Deaths:	9
+		     					      </span>		     		
+		     					   </div> 	                      	
+	                     </div>                    
+	                  </a>
+	               </div>
+	        		</div> <!-- /folio-item -->
+
+	            <div class="bgrid folio-item">
+	               <div class="item-wrap">
+	               	<img src="./images/polands.jpg" alt="Poland">
+	                  <a href="#modal-06" class="overlay">
+	                     <div class="folio-item-table">
+	                     	<div class="folio-item-cell">
+	                     		<h3 class="folio-title">Biebrza National Park</h3>	     					    
+		     					    	<span class="folio-types">
+											Thousands of hectares of Biebrza National Park, Poland’s biggest national park, burned from wildfire.
+		     					      </span>		     		
+		     					   </div>	                      	
+	                     </div>                    
+	                  </a>
+	               </div>
+	        		</div> <!-- /folio-item -->   
+
+	            <!-- modal popups - begin
+	            ============================================================= -->
+	            <div id="modal-01" class="popup-modal slider mfp-hide">	
+
+				     	<div class="media">
+				     		<img src="images/portfolio/modals/m-liberty.jpg" alt="" />
+				     	</div>      	
+
+					   <div class="description-box">
+					      <h4>Liberty</h4>		      
+					      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+
+					      <div class="categories">Web Development</div>			               
+					   </div>
+
+			         <div class="link-box">
+			            <a href="http://www.behance.net">Details</a>
+					      <a href="#" class="popup-modal-dismiss">Close</a>
+			         </div>		      
+
+				   </div> <!-- /modal-01 -->
+
+				   <div id="modal-02" class="popup-modal slider mfp-hide">	
+
+				     	<div class="media">
+				     		<img src="images/portfolio/modals/m-shutterbug.jpg" alt="" />
+				     	</div>      	
+
+					   <div class="description-box">
+					      <h4>Shutterbug</h4>		      
+					      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+
+					      <div class="categories">Web Design</div>			               
+					   </div>
+
+			         <div class="link-box">
+			            <a href="http://www.behance.net">Details</a>
+					      <a href="#" class="popup-modal-dismiss">Close</a>
+			         </div>		      
+
+				   </div> <!-- /modal-02 -->
+
+				   <div id="modal-03" class="popup-modal slider mfp-hide">	
+
+				     	<div class="media">
+				     		<img src="images/portfolio/modals/m-clouds.jpg" alt="" />
+				     	</div>      	
+
+					   <div class="description-box">
+					      <h4>Clouds</h4>		      
+					      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+
+					      <div class="categories">Web Design</div>			               
+					   </div>
+
+			         <div class="link-box">
+			            <a href="http://www.behance.net">Details</a>
+					      <a href="#" class="popup-modal-dismiss">Close</a>
+			         </div>		      
+
+				   </div> <!-- /modal-03 -->
+
+				   <div id="modal-04" class="popup-modal slider mfp-hide">	
+
+				     	<div class="media">
+				     		<img src="images/portfolio/modals/m-beetle.jpg" alt="" />
+				     	</div>      	
+
+					   <div class="description-box">
+					      <h4>Beetle</h4>		      
+					      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+
+					      <div class="categories">Branding</div>			               
+					   </div>
+
+			         <div class="link-box">
+			            <a href="http://www.behance.net">Details</a>
+					      <a href="#" class="popup-modal-dismiss">Close</a>
+			         </div>		      
+
+				   </div> <!-- /modal-04 -->
+
+				   <div id="modal-05" class="popup-modal slider mfp-hide">	
+
+				     	<div class="media">
+				     		<img src="images/portfolio/modals/m-lighthouse.jpg" alt="" />
+				     	</div>      	
+
+					   <div class="description-box">
+					      <h4>Lighthouse</h4>		      
+					      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+
+					      <div class="categories">Web Development</div>			               
+					   </div>
+
+			         <div class="link-box">
+			            <a href="http://www.behance.net">Details</a>
+					      <a href="#" class="popup-modal-dismiss">Close</a>
+			         </div>		      
+
+				   </div> <!-- /modal-05 -->
+
+				   <div id="modal-06" class="popup-modal slider mfp-hide">	
+
+				     	<div class="media">
+				     		<img src="images/portfolio/modals/m-salad.jpg" alt="" />
+				     	</div>      	
+
+					   <div class="description-box">
+					      <h4>Salad</h4>		      
+					      <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+
+					      <div class="categories">Branding</div>			               
+					   </div>
+
+			         <div class="link-box">
+			            <a href="http://www.behance.net">Details</a>
+					      <a href="#" class="popup-modal-dismiss">Close</a>
+			         </div>		      
+
+				   </div> <!-- /modal-06 -->
+
+
+				   <!-- modal popups - end
+	            ============================================================= -->
+
+	         </div> <!-- /portfolio-wrapper --> 
+
+   		</div>  <!-- /twelve -->   
+
+   	</div> <!-- /portfolio-content --> 
+		
+	</section> <!-- /portfolio --> 
+
+
+	<!-- CTA Section
+   ================================================== -->
+	<section id="cta" class="grey-section">
+
+   	<div class="row cta-content">
+
+   		<div class="col-twelve section-ads">  
+
+	     		<h2 class="h01"><a href="http://www.dreamhost.com/r.cgi?287326|STYLESHOUT">Are you an administrator?</a></h2>
+
+		      <p class="lead">
+		    	Please sign in with proper mail and password to get access to website as a admin.. 
+				<!-- Simply type	the promocode in the box labeled “Promo Code” when placing your order. -->	
+				</p>
+				<div class="action">
+			      <a class="button button-primary large" href="#intro">Sign Up Now</a>
+		      </div>		     	
+
+   		</div>
+
+   	</div> <!-- /cta-content -->
+
+   </section> <!-- /cta --> 
+
+	
+	<!-- services Section
+   ================================================== -->
+	<section id="services">
+
+		<div class="overlay"></div>
+
+		<div class="row section-intro">
+   		<div class="col-twelve">
+
+   			<h5>Patient's Report</h5>
+   			<h1>Recent Fire Incident Victims</h1>
+
+   			<!-- <p class="lead">Lorem ipsum Do commodo in proident enim in dolor cupidatat adipisicing dolore officia nisi aliqua incididunt Ut veniam lorem ipsum Consectetur ut in in eu do.</p> -->
+
+   		</div>   		
+   	</div> <!-- /section-intro -->
+
+   	<div class="row services-content">
+
+   		<div id="owl-slider" class="owl-carousel services-list">
+
+	      	<div class="service">	
+	            <div class="service-content">	
+
+	            	 <h3>Ram Krishna Dhakal</h3>
+
+		            <p class="desc">
+						Age: 22 years <br>
+						Address: XYZ <br>
+						Sex: Male <br>
+						Blood Group: AB+ <br>
+						Health Condition: Healing <br>
+						Hospital: ABC Hospital <br>
+	         		</p>
+	         		<button class="view_more" type="button">View More</button>
+	         	</div> 	         	 
+
+				</div> <!-- /service -->
+
+				<div class="service">	                          
+
+	            <div class="service-content">	
+
+	            	<h3>Hari Prasad Paudel</h3>  
+
+		            <p class="desc">
+						Age: 25 years <br>
+						Address: WXZ<br>
+						Sex: Male <br>
+						Blood Group: A+ <br>
+						Health Condition: Weak <br>
+						Hospital: DEF Hospital <br>
+	         		</p>
+					 <button class="view_more" type="button">View More</button>
+	            </div>	                          
+
+			   </div> <!-- /service -->
+
+			   <div class="service">           
+
+	            <div class="service-content">
+
+	            	<h3>Narayani Rani Thakuri</h3>
+
+		            <p class="desc">
+						Age: 30 years <br>
+						Address: WTX<br>
+						Sex: Female <br>
+						Blood Group: B+ <br>
+						Health Condition: Recovered <br>
+						Hospital: GHI Hospital <br>
+	        			</p> 
+						<button class="view_more" type="button">View More</button>
+	            </div> 	            	               
+
+			   </div> <!-- /service -->
+
+				<div class="service">
+	            <div class="service-content">
+
+	            	<h3>Sultan K.C.</h3>
+
+		            <p class="desc">
+						Age: 15 years <br>
+						Address: DDD <br>
+						Sex: Male <br>
+						Blood Group: B- <br>
+						Health Condition: Healing <br>
+						Hospital: JKL Hospital <br>
+	         		</p> 
+					 <button class="view_more" type="button">View More</button>
+	            </div>                
+
+				</div> <!-- /service -->
+
+			   <div class="service">
+	            <div class="service-content">
+
+	            	<h3>Hari Ishowr Paudel</h3>
+
+		            <p class="desc">
+						Age: 10 years <br>
+						Address: WEC<br>
+						Sex: Male <br>
+						Blood Group: A+ <br>
+						Health Condition: Emergency <br>
+						Hospital: MNO Hospital <br>
+	        		</p> 
+					<button class="view_more" type="button">View More</button>
+	            </div>	               
+
+			   </div> <!-- /service -->
+
+			   <div class="service">
+	            <div class="service-content">
+
+	            	 <h3>Sundari Pandey</h3>
+
+		            <p class="desc">
+						Age: 50 years <br>
+						Address: OKS <br>
+						Sex: Female <br>
+						Blood Group: AB+ <br>
+						Health Condition: Recovered <br>
+						Hospital: PQR Hospital <br>
+	        		</p> 
+					<button class="view_more" type="button">View More</button>
+	            </div>	        
+				
+				
+
+			   </div> <!-- /service -->
+
+	      </div> <!-- /services-list -->
+   		
+   	</div> <!-- /services-content -->
+		
+	</section> <!-- /services -->	
+
+	<!-- stats Section
+   ================================================== -->
+   <section id="stats" class="count-up">
+
+	<div class="row">
+		<div class="col-twelve">
+
+			<div class="block-1-6 block-s-1-3 block-tab-1-2 block-mob-full stats-list">
+
+				<div class="bgrid stat">
+
+					<div class="icon-part">
+						<i class="icon-pencil-ruler"></i>
+					</div>
+
+					<h3 class="stat-count">
+						15
+					</h3>
+
+					<h5 class="stat-title">
+						Projects Completed
+					</h5>
+
+				</div> <!-- /stat -->					
+
+				<div class="bgrid stat">
+
+					<div class="icon-part">
+						<i class="icon-users"></i>
+					</div>
+
+					<h3 class="stat-count">
+						9000
+					</h3>
+
+					<h5 class="stat-title">
+						Happy Students
+					</h5>
+
+				</div> <!-- /stat -->
+
+				<div class="bgrid stat">
+
+					<div class="icon-part">
+						<i class="icon-badge"></i>
+					</div>
+
+					<h3 class="stat-count">
+						200
+					</h3>
+
+					<h5 class="stat-title">
+						Fire Incidents Reported
+					</h5>
+
+				</div> <!-- /stat -->									
+
+				<div class="bgrid stat">
+
+					<div class="icon-part">
+						<i class="icon-light-bulb"></i>
+					</div>
+
+					<h3 class="stat-count">
+						120
+					</h3>
+
+					<h5 class="stat-title">
+						Lifes Saved
+					</h5>
+
+				</div> <!-- /stat -->
+
+				<div class="bgrid stat">
+
+					<div class="icon-part">
+						<i class="icon-cup"></i>
+					</div>
+
+					<h3 class="stat-count">
+						5
+					</h3>
+
+					<h5 class="stat-title">
+						Ongoing Projects
+					</h5>
+
+				</div> <!-- /stat -->
+
+				<div class="bgrid stat">
+
+					<div class="icon-part">
+						<i class="icon-clock"></i>
+					</div>
+
+					<h3 class="stat-count">
+						100
+					</h3>
+
+					<h5 class="stat-title">
+						Services Provided
+					</h5>
+
+				</div> <!-- /stat -->
+
+			</div> <!-- /stats-list -->
+
+		</div> <!-- /twelve -->
+	</div> <!-- /row -->
+
+</section> <!-- /stats -->
+	
+   <!-- contact
+   ================================================== -->
+	<section id="contact">
+
+		<div class="row section-intro">
+   		<div class="col-twelve">
+
+   			<h5>Contact</h5>
+   			<h1>We'd Love To Hear From You.</h1>
+
+   			<p class="lead">Please feel free to contact us and give feedback to us.</p>
+
+   		</div> 
+   	</div> <!-- /section-intro -->
+
+   	<div class="row contact-form">
+
+   		<div class="col-twelve">
+
+            <!-- form -->
+            <form name="contactForm" id="contactForm" method="post" action="">
+      			<fieldset>
+
+                  <div class="form-field">
+ 						   <input name="contactName" type="text" id="contactName" placeholder="Name" value="" minlength="2" required="">
+                  </div>
+                  <div class="form-field">
+	      			   <input name="contactEmail" type="email" id="contactEmail" placeholder="Email" value="" required="">
+	               </div>
+                  <div class="form-field">
+	     				   <input name="contactSubject" type="text" id="contactSubject" placeholder="Subject" value="">
+	               </div>                       
+                  <div class="form-field">
+	                 	<textarea name="contactMessage" id="contactMessage" placeholder="message" rows="10" cols="50" required=""></textarea>
+	               </div>                      
+                 <div class="form-field">
+                     <button class="submitform">Submit</button>
+                     <div id="submit-loader">
+                        <div class="text-loader">Sending...</div>                             
+       				      <div class="s-loader">
+								  	<div class="bounce1"></div>
+								  	<div class="bounce2"></div>
+								  	<div class="bounce3"></div>
+								</div>
+							</div>
+                  </div>
+
+      			</fieldset>
+      		</form> <!-- Form End -->
+
+            <!-- contact-warning -->
+            <div id="message-warning">            	
+            </div>            
+            <!-- contact-success -->
+      		<div id="message-success">
+               <i class="fa fa-check"></i>Your message was sent, thank you!<br>
+      		</div>
+
+         </div> <!-- /col-twelve -->
+   		
+   	</div> <!-- /contact-form -->
+
+	<div id="about-us">
+
+   	<div class="row contact-info">
+
+   		<div class="col-four tab-full">
+
+   			<div class="icon">
+   				<i class="icon-pin"></i>
+   			</div>
+
+   			<h5>Where to find us</h5>
+
+   			<p>
+            Maitighar, Kathmandu
+            </p>
+
+   		</div>
+
+   		<div class="col-four tab-full collapse">
+
+   			<div class="icon">
+   				<i class="icon-mail"></i>
+   			</div>
+
+   			<h5>Email Us At</h5>
+
+   			<p>supermariofirefighters@gmail.com<br>			     
+			   </p>
+
+   		</div>
+
+   		<div class="col-four tab-full">
+
+   			<div class="icon">
+   				<i class="icon-phone"></i>
+   			</div>
+
+   			<h5>Call Us At</h5>
+
+   			<p>Phone: <br>
+					9829167783 <br>
+					9860331326 <br>
+			     	9863286890 <br>
+			   </p>
+
+   		</div>
+   		
+   	</div> <!-- /contact-info -->
+
+</div>
+		
+	</section> <!-- /contact -->
+
+
+   <!-- footer
+   ================================================== -->
+	      	<div id="go-top">
+		         <a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-long-arrow-up"></i></a>
+		      </div>
+
+      	</div> <!-- /row -->     	
+   </footer>  
+
+   <div id="preloader"> 
+    	<div id="loader"></div>
+   </div> 
+
+   <!-- Java Script
+   ================================================== --> 
+   <script src="js/jquery-2.1.3.min.js"></script>
+   <script src="js/plugins.js"></script>
+   <script src="js/main.js"></script>
+
+   <script>
+   // Function to toggle the visibility of the popup
+	function togglePopup() {
+		var popup = document.querySelector('.popup-modal');
+		
+		// Check the current display property
+		if (popup.style.display === 'none' || popup.style.display === '') {
+			// If it's hidden, show the popup
+			popup.style.display = 'block';
+			// Add the blur class to the background content
+			var containerMain = document.querySelector('.container-main');
+			var sectionClass = document.querySelector('.section-class');
+			containerMain.classList.add('blur-background');
+			sectionClass.classList.add('blur-background');
+
+		} else {
+			// If it's visible, hide the popup
+			popup.style.display = 'none';
+			// Remove the blur class from the background content
+			document.body.classList.remove('blur-background');
+		}
+	}
+	
+	// Show the popup when the window loads
+	window.onload = function() {
+		togglePopup();
+	};
+	</script>
+</div>
+</body>
+
+</html>
+
